@@ -3,6 +3,7 @@ import json
 import datetime
 from typing import Optional, List
 from fastapi import FastAPI, Depends, HTTPException, Query, UploadFile, File, Form, status, Response
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
@@ -729,8 +730,34 @@ def toggle_rule(
 
     return {"success": True, "id": r.id, "enabled": r.enabled}
 
-# Mount built frontend dist for production deployment
-FRONTEND_DIST_DIR = os.path.join(PROJECT_ROOT, "frontend", "dist")
-if os.path.exists(FRONTEND_DIST_DIR):
-    app.mount("/", StaticFiles(directory=FRONTEND_DIST_DIR, html=True), name="frontend")
+# Locate built frontend dist directory for production deployment
+DIST_DIR = None
+for candidate in [
+    os.path.join(PROJECT_ROOT, "frontend", "dist"),
+    os.path.join(BASE_DIR, "dist"),
+    os.path.join(os.getcwd(), "frontend", "dist"),
+    os.path.join(os.getcwd(), "dist"),
+]:
+    if os.path.exists(candidate) and os.path.exists(os.path.join(candidate, "index.html")):
+        DIST_DIR = candidate
+        break
+
+if DIST_DIR:
+    assets_dir = os.path.join(DIST_DIR, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/")
+    def serve_root():
+        return FileResponse(os.path.join(DIST_DIR, "index.html"))
+
+    @app.get("/{full_path:path}")
+    def serve_spa(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="API endpoint not found")
+        file_path = os.path.join(DIST_DIR, full_path)
+        if os.path.isfile(file_path):
+            return FileResponse(file_path)
+        return FileResponse(os.path.join(DIST_DIR, "index.html"))
+
 
