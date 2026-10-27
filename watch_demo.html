@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartVerifyAI (AICTE) - 1m 50s Demo Video Walkthrough</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #0F172A;
+      color: #F8FAFC;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .tricolour {
+      height: 6px;
+      display: flex;
+      width: 100%;
+    }
+    .tricolour .saffron { width: 33.33%; background: #FF9933; }
+    .tricolour .white { width: 33.33%; background: #FFFFFF; }
+    .tricolour .green { width: 33.34%; background: #138808; }
+    
+    header {
+      padding: 16px 24px;
+      background: #1E293B;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge-portal {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(232, 137, 12, 0.2);
+      color: #E8890C;
+      border: 1px solid rgba(232, 137, 12, 0.5);
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .container {
+      max-width: 1140px;
+      margin: 24px auto;
+      padding: 0 16px;
+      flex: 1;
+    }
+    .video-wrapper {
+      position: relative;
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16 / 9;
+    }
+    .chapters-panel {
+      margin-top: 24px;
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .chapter-card {
+      background: #0F172A;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chapter-card:hover {
+      border-color: #E8890C;
+      background: #182234;
+    }
+    .chapter-time {
+      font-size: 11px;
+      font-family: monospace;
+      color: #E8890C;
+      font-weight: 700;
+    }
+    .chapter-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #F1F5F9;
+      margin-top: 2px;
+    }
+    .chapter-desc {
+      font-size: 11px;
+      color: #94A3B8;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+    .downloads-bar {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1B3A6B;
+      color: #FFF;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid #2B5797;
+    }
+    .btn-download:hover { background: #142C52; }
+    .btn-download.saffron {
+      background: #E8890C;
+      border-color: #C97207;
+    }
+    .btn-download.saffron:hover { background: #C97207; }
+  </style>
+</head>
+<body>
+  <div class="tricolour">
+    <div class="saffron"></div>
+    <div class="white"></div>
+    <div class="green"></div>
+  </div>
+
+  <header>
+    <div class="brand">
+      <img src="frontend/public/logo.svg" width="36" height="36" alt="SmartVerifyAI Logo">
+      <h1 style="font-size: 18px; font-weight: 700; color: #FFFFFF;">Smart<span style="color: #E8890C;">Verify</span>AI</h1>
+      <span class="badge-portal">AICTE EoA Prototype</span>
+    </div>
+    <div style="font-size: 12px; color: #94A3B8;">
+      Duration: <strong style="color: #F8FAFC;">1 min 50 sec</strong> · 1080p Screen Recording
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="video-wrapper">
+      <video id="demoVideo" controls autoplay muted>
+        <source src="Pramaan_Demo_Walkthrough.mp4" type="video/mp4">
+        <source src="Pramaan_Demo_Walkthrough.webm" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="downloads-bar">
+      <span style="font-size: 12px; color: #94A3B8;">Direct Video Files:</span>
+      <a href="Pramaan_Demo_Walkthrough.mp4" download class="btn-download saffron">
+        ⬇ Download MP4 Video (1080p)
+      </a>
+      <a href="Pramaan_Demo_Walkthrough.webm" download class="btn-download">
+        ⬇ Download WebM Video (Master)
+      </a>
+    </div>
+
+    <div class="chapters-panel">
+      <h3 style="font-size: 14px; font-weight: 700; color: #F8FAFC; text-transform: uppercase; letter-spacing: 0.05em;">
+        Step-by-Step Video Chapters
+      </h3>
+      <p style="font-size: 12px; color: #94A3B8; margin-top: 2px;">
+        Click any chapter below to jump directly to that feature demonstration in the recording.
+      </p>
+
+      <div class="chapters-grid">
+        <div class="chapter-card" onclick="seekTo(0)">
+          <div class="chapter-time">0:00 - 0:14</div>
+          <div class="chapter-title">1. Role-Based Login & Access</div>
+          <div class="chapter-desc">Select Scrutiny Officer from 4 preset roles and sign in.</div>
+        </div>
+
+        <div class="chapter-card" onclick="seekTo(14)">
+          <div class="chapter-time">0:14 - 0:34</div>
+          <div class="chapter-title">2. Executive Dashboard & Metrics</div>
+          <div class="chapter-desc">5 status count cards, critical alerts, and 98.4% OCR accuracy stats.</div>
+        </div>
+
+        <div class="chapter-card" onclick="seekTo(34)">
+          <div class="chapter-time">0:34 - 0:50</div>
+          <div class="chapter-title">3. Applications Central Registry</div>
+          <div class="chapter-desc">Filter 15 dossiers by category/status, select high-risk APP-2026-004.</div>
+        </div>
+
+        <div class="chapter-card" onclick="seekTo(50)">
+          <div class="chapter-time">0:50 - 1:10</div>
+          <div class="chapter-title">4. Automated Rule Checklist</div>
+          <div class="chapter-desc">APH 2026-27 norms map automatically; red missing Fire NOC detected.</div>
+        </div>
+
+        <div class="chapter-card" onclick="seekTo(70)">
+          <div class="chapter-time">1:10 - 1:26</div>
+          <div class="chapter-title">5. Source Verification at Issuing Authorities</div>
+          <div class="chapter-desc">Direct checks at University, NBA/NAAC, Land, and Fire gateways.</div>
+        </div>
+
+        <div class="chapter-card" onclick="seekTo(86)">
+          <div class="chapter-time">1:26 - 1:38</div>
+          <div class="chapter-title">6. Digital Forensics & Physical Norms</div>
+          <div class="chapter-desc">Duplicate hash matching, ELA visual edit hints, and 4.5 sqm/student area.</div>
+        </div>
+
+        <div class="chapter-card" onclick="seekTo(98)">
+          <div class="chapter-time">1:38 - 1:47</div>
+          <div class="chapter-title">7. Human Officer Adjudication</div>
+          <div class="chapter-desc">Request clarification, type regulatory remarks, and submit decision.</div>
+        </div>
+
+        <div class="chapter-card" onclick="seekTo(107)">
+          <div class="chapter-time">1:47 - 1:50</div>
+          <div class="chapter-title">8. Tamper-Proof Audit Trail & Hindi Mode</div>
+          <div class="chapter-desc">Immutable audit ledger, CSV download, and Hindi Devanagari localization.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function seekTo(seconds) {
+      const v = document.getElementById('demoVideo');
+      v.currentTime = seconds;
+      v.play();
+    }
+  </script>
+</body>
+</html>

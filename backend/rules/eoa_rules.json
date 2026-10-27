@@ -1,0 +1,82 @@
+[
+  {
+    "id": "RULE-APH-01",
+    "code": "LAND_NOC_VALIDITY",
+    "title": "Land Title Deed / Registered Lease Verification",
+    "category": "Legal & Land",
+    "handbook_ref": "APH 2026-27, Ch. 1, Cl. 1.4",
+    "description": "Institute must hold clear title or minimum 30-year registered lease deed from competent state revenue authority.",
+    "enabled": true,
+    "severity": "CRITICAL"
+  },
+  {
+    "id": "RULE-APH-02",
+    "code": "AFFILIATION_VALIDITY",
+    "title": "University Affiliation Letter Authenticity",
+    "category": "Academic Affiliation",
+    "handbook_ref": "APH 2026-27, Ch. 2, Cl. 2.3",
+    "description": "Valid annual or permanent affiliation letter issued by affiliating State/Central University for current academic year.",
+    "enabled": true,
+    "severity": "CRITICAL"
+  },
+  {
+    "id": "RULE-APH-03",
+    "code": "NBA_NAAC_STATUS",
+    "title": "NBA/NAAC Accreditation Validity",
+    "category": "Quality & Accreditation",
+    "handbook_ref": "APH 2026-27, Ch. 3, Cl. 3.2",
+    "description": "Accreditation must be valid for applications proposing increase in intake or launching new courses.",
+    "enabled": true,
+    "severity": "HIGH"
+  },
+  {
+    "id": "RULE-APH-04",
+    "code": "FIRE_SAFETY_NOC",
+    "title": "State Fire Safety Certificate Compliance",
+    "category": "Building Safety",
+    "handbook_ref": "APH 2026-27, Ch. 4, Cl. 4.1",
+    "description": "Building fire safety certificate issued by State Fire Service, valid for the entire academic cycle.",
+    "enabled": true,
+    "severity": "CRITICAL"
+  },
+  {
+    "id": "RULE-APH-05",
+    "code": "CARPET_AREA_NORM",
+    "title": "Minimum Instructional Carpet Area per Student",
+    "category": "Infrastructure",
+    "handbook_ref": "APH 2026-27, Ch. 5, Cl. 5.6",
+    "description": "Minimum instructional carpet area of 4.5 sq.m per enrolled student across classrooms and tutorial blocks.",
+    "enabled": true,
+    "severity": "MEDIUM"
+  },
+  {
+    "id": "RULE-APH-06",
+    "code": "LAB_EQUIPMENT_COUNT",
+    "title": "Laboratories to Course Ratio",
+    "category": "Infrastructure",
+    "handbook_ref": "APH 2026-27, Ch. 5, Cl. 5.9",
+    "description": "At least 6 dedicated, fully equipped laboratories per undergraduate engineering/technology specialization.",
+    "enabled": true,
+    "severity": "MEDIUM"
+  },
+  {
+    "id": "RULE-APH-07",
+    "code": "CROSS_INSTITUTE_DUPLICATION",
+    "title": "Cross-Institute Duplicate Document Detection",
+    "category": "Integrity & Forensics",
+    "handbook_ref": "APH 2026-27, Annexure 8, Sec. B",
+    "description": "Cryptographic file hash (SHA256) and text perceptual fingerprint must be unique across all AICTE institute filings.",
+    "enabled": true,
+    "severity": "CRITICAL"
+  },
+  {
+    "id": "RULE-APH-08",
+    "code": "METADATA_INTEGRITY",
+    "title": "Digital Document Metadata and ELA Verification",
+    "category": "Integrity & Forensics",
+    "handbook_ref": "APH 2026-27, Annexure 8, Sec. D",
+    "description": "Scanned letters and PDFs must show consistent creation timestamps and pass visual error-level tampering analysis.",
+    "enabled": true,
+    "severity": "HIGH"
+  }
+]
