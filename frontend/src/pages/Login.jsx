@@ -4,13 +4,21 @@ import { User, Lock, ArrowRight, CheckCircle2, ShieldAlert } from 'lucide-react'
 import { PremiumShieldLogo } from '../components/PremiumShieldLogo';
 
 export const Login = () => {
-  const { loginAs, t } = useApp();
+  const { loginWithPreset } = useApp();
   const [selectedPreset, setSelectedPreset] = useState(DEMO_PRESETS[0]);
-  const [password, setPassword] = useState('pramaan2026');
+  const [password, setPassword] = useState('demo123');
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    loginAs(selectedPreset);
+    setLoading(true);
+    setErrorMsg('');
+    const result = await loginWithPreset(selectedPreset, password);
+    if (!result.success) {
+      setErrorMsg(result.error || 'Authentication failed. Please verify credentials.');
+    }
+    setLoading(false);
   };
 
   return (
@@ -34,7 +42,7 @@ export const Login = () => {
               Smart<span className="text-[#E8890C]">Verify</span>AI
             </h1>
             <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-              Application Validation & Document Verification System
+              Role-Based Application Validation & Document Verification
             </p>
             <p className="text-[11px] text-slate-500 max-w-md mx-auto">
               Regulation Bureau · All India Council for Technical Education (AICTE)
@@ -42,23 +50,34 @@ export const Login = () => {
           </div>
 
           {/* Login Card */}
-          <div className="gov-card p-6 bg-white shadow-sm border border-slate-200">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3 pb-2 border-b border-slate-100 flex items-center justify-between">
-              <span>Select Demo Role to Begin</span>
+          <div className="gov-card p-6 bg-white shadow-sm border border-slate-200 rounded-lg">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                Select Authorized Demo Role
+              </h2>
               <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-semibold">
-                One-Click Access
+                One-Click Quick Login
               </span>
-            </h2>
+            </div>
 
-            {/* Role Selection Grid */}
+            {errorMsg && (
+              <div className="mb-4 p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded font-medium">
+                {errorMsg}
+              </div>
+            )}
+
+            {/* Role Selection Grid (Includes inst01, inst02, scrutiny01, senior01, auditor01) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-5">
               {DEMO_PRESETS.map((preset) => {
-                const isSelected = selectedPreset.role === preset.role;
+                const isSelected = selectedPreset.username === preset.username;
                 return (
                   <button
-                    key={preset.role}
+                    key={preset.username}
                     type="button"
-                    onClick={() => setSelectedPreset(preset)}
+                    onClick={() => {
+                      setSelectedPreset(preset);
+                      setErrorMsg('');
+                    }}
                     className={`p-3 rounded text-left border transition-all text-xs flex flex-col justify-between ${
                       isSelected
                         ? 'border-[#1B3A6B] bg-blue-50/50 shadow-xs ring-1 ring-[#1B3A6B]'
@@ -68,17 +87,15 @@ export const Login = () => {
                     <div>
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-slate-900">{preset.role}</span>
-                        {preset.role === 'Scrutiny Officer' && (
-                          <span className="text-[9px] bg-[#E8890C] text-white px-1.5 py-0.2 rounded font-semibold">
-                            Primary Flow
-                          </span>
-                        )}
-                        {isSelected && preset.role !== 'Scrutiny Officer' && (
+                        {isSelected && (
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#1B3A6B]" />
                         )}
                       </div>
-                      <span className="text-slate-600 font-medium block mt-1 text-[11px]">
+                      <span className="text-slate-700 font-semibold block mt-1 text-[11px]">
                         {preset.name}
+                      </span>
+                      <span className="text-[10px] text-slate-500 font-mono block">
+                        user: {preset.username}
                       </span>
                     </div>
                     <span className="text-[10px] text-slate-400 mt-2 block leading-tight">
@@ -89,17 +106,17 @@ export const Login = () => {
               })}
             </div>
 
-            {/* Selected User Credentials Form */}
+            {/* Credentials Form */}
             <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">Email ID</label>
+                <label className="block text-slate-700 font-semibold mb-1">Username / ID</label>
                 <div className="relative">
                   <User className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
                   <input
-                    type="email"
-                    value={selectedPreset.email}
+                    type="text"
+                    value={selectedPreset.username}
                     readOnly
-                    className="w-full pl-8 pr-3 py-2 text-xs rounded border border-slate-300 bg-slate-50 text-slate-700 font-medium focus:outline-none"
+                    className="w-full pl-8 pr-3 py-2 text-xs rounded border border-slate-300 bg-slate-50 text-slate-800 font-mono font-semibold focus:outline-none"
                   />
                 </div>
               </div>
@@ -113,6 +130,7 @@ export const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full pl-8 pr-3 py-2 text-xs rounded border border-slate-300 bg-white text-slate-800 focus:outline-none focus:border-[#1B3A6B]"
+                    required
                   />
                 </div>
               </div>
@@ -120,16 +138,17 @@ export const Login = () => {
               <button
                 type="submit"
                 id="btn-login-submit"
-                className="w-full btn-gov-primary py-2.5 text-xs flex items-center justify-center space-x-1.5 shadow-xs mt-2"
+                disabled={loading}
+                className="w-full btn-gov-primary py-2.5 text-xs flex items-center justify-center space-x-1.5 shadow-xs mt-2 font-bold"
               >
-                <span>Sign In as {selectedPreset.role}</span>
+                <span>{loading ? "Authenticating..." : `Sign In as ${selectedPreset.role}`}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </form>
 
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center text-[10px] text-slate-400 space-x-2">
               <ShieldAlert className="w-3.5 h-3.5 text-slate-400" />
-              <span>Simulated Prototype Login · 100% Synthetic Data for SIH 2026</span>
+              <span>Redirects to dedicated role home: {selectedPreset.homePath}</span>
             </div>
           </div>
 
@@ -138,7 +157,7 @@ export const Login = () => {
 
       {/* Footer */}
       <footer className="w-full bg-white border-t border-slate-200 py-3 text-center text-[11px] text-slate-500">
-        <p>Prototype for Smart India Hackathon 2026 · Problem Statement 26261 · Not an official AICTE system.</p>
+        <p>Prototype for Smart India Hackathon 2026 · Problem Statement 26261 · AICTE Regulation Bureau.</p>
       </footer>
     </div>
   );

@@ -5,70 +5,166 @@ const AppContext = createContext();
 
 export const DEMO_PRESETS = [
   {
-    role: "Scrutiny Officer",
-    email: "scrutiny@pramaan.aicte.gov.in",
-    name: "Smt. Ananya Sharma",
-    desc: "Reviews flags, verifies sources, confirms or dismisses findings"
-  },
-  {
-    role: "Senior Officer",
-    email: "senior@pramaan.aicte.gov.in",
-    name: "Shri Rajeshwar Verma",
-    desc: "Views high-level analytics, takes final policy and approval call"
-  },
-  {
+    username: "inst01",
     role: "Institution",
-    email: "institution@pramaan.aicte.gov.in",
-    name: "Dr. Ramesh Gupta (R.V. Institute)",
-    desc: "Submits application dossier, views deficiencies and fixes gaps"
+    name: "Dr. Ramesh Gupta (Director, R.V. Institute)",
+    institute_id: "INST-01",
+    homePath: "/institution/home",
+    desc: "Submit application, upload/replace docs, view plain deficiencies"
   },
   {
+    username: "inst02",
+    role: "Institution",
+    name: "Dr. Suresh Patil (Director, Pune Institute)",
+    institute_id: "INST-02",
+    homePath: "/institution/home",
+    desc: "Second institution demonstrating strict data-isolation rules"
+  },
+  {
+    username: "scrutiny01",
+    role: "Scrutiny Officer",
+    name: "Smt. Ananya Sharma",
+    institute_id: null,
+    homePath: "/scrutiny/queue",
+    desc: "Review queue, source verify, accept/dismiss flags, recommend to Senior"
+  },
+  {
+    username: "senior01",
+    role: "Senior Officer",
+    name: "Shri Rajeshwar Verma",
+    institute_id: null,
+    homePath: "/senior/overview",
+    desc: "High-level overview, final decisions (Approve/Return/Reject), assign, rules"
+  },
+  {
+    username: "auditor01",
     role: "Auditor",
-    email: "auditor@pramaan.aicte.gov.in",
     name: "Shri K. S. Narayanan",
-    desc: "Read-only access to immutable regulatory audit logs"
+    institute_id: null,
+    homePath: "/audit/logs",
+    desc: "Read-only access, searchable audit ledger, export CSV"
   }
 ];
 
+export const ROLE_DEFAULT_PATHS = {
+  "Institution": "/institution/home",
+  "Scrutiny Officer": "/scrutiny/queue",
+  "Senior Officer": "/senior/overview",
+  "Auditor": "/audit/logs"
+};
+
+export const ROLE_PATH_PREFIXES = {
+  "Institution": "/institution",
+  "Scrutiny Officer": "/scrutiny",
+  "Senior Officer": "/senior",
+  "Auditor": "/audit"
+};
+
+export const TOP_STRIP_COLORS = {
+  "Institution": "#138808",     // Green
+  "Scrutiny Officer": "#1B3A6B",// Navy
+  "Senior Officer": "#FF9933",  // Saffron
+  "Auditor": "#64748B"          // Grey
+};
+
 export const AppProvider = ({ children }) => {
   const [lang, setLang] = useState('en');
-  const [currentView, setCurrentView] = useState('login'); // Start at 'login' for true start-to-finish experience
-  const [selectedAppId, setSelectedAppId] = useState('APP-2026-004'); // default for quick demo inspection
-  const [currentUser, setCurrentUser] = useState({
-    id: "USR-SCRUT-01",
-    email: "scrutiny@pramaan.aicte.gov.in",
-    name: "Smt. Ananya Sharma",
-    role: "Scrutiny Officer"
+  const [currentPath, setCurrentPath] = useState(() => {
+    const path = window.location.pathname;
+    return (path && path !== '/') ? path : '/login';
   });
-  const [token, setToken] = useState('demo-token');
+  const [selectedAppId, setSelectedAppId] = useState('APP-2026-004');
+
+  // Load saved user or start at login
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('smartverify_user');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return null;
+  });
+
+  const [token, setToken] = useState(() => {
+    return localStorage.getItem('smartverify_token') || '';
+  });
 
   const t = translations[lang] || translations.en;
+
+  // Sync with browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname || '/login');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateTo = (path, appId = null) => {
+    if (appId) {
+      setSelectedAppId(appId);
+    }
+    setCurrentPath(path);
+    if (window.location.pathname !== path) {
+      window.history.pushState(null, '', path);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const toggleLanguage = () => {
     setLang(prev => (prev === 'en' ? 'hi' : 'en'));
   };
 
-  const loginAs = (preset) => {
-    setCurrentUser({
-      id: "USR-" + preset.role.toUpperCase().replace(/\s+/g, '-'),
-      email: preset.email,
-      name: preset.name,
-      role: preset.role
-    });
-    setToken('token-' + preset.role);
-    setCurrentView('dashboard');
+  const loginWithPreset = async (preset, password = 'demo123') => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: preset.username, password })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.detail || 'Login failed');
+      }
+
+      const userObj = {
+        id: data.user.id,
+        username: data.user.username,
+        email: data.user.email,
+        name: data.user.name,
+        role: data.user.role,
+        institute_id: data.user.institute_id
+      };
+
+      setCurrentUser(userObj);
+      setToken(data.access_token);
+      localStorage.setItem('smartverify_user', JSON.stringify(userObj));
+      localStorage.setItem('smartverify_token', data.access_token);
+
+      const targetPath = ROLE_DEFAULT_PATHS[userObj.role] || '/institution/home';
+      navigateTo(targetPath);
+      return { success: true };
+    } catch (err) {
+      console.error("Login error:", err);
+      return { success: false, error: err.message };
+    }
   };
 
   const logout = () => {
-    setCurrentView('login');
+    setCurrentUser(null);
+    setToken('');
+    localStorage.removeItem('smartverify_user');
+    localStorage.removeItem('smartverify_token');
+    navigateTo('/login');
   };
 
-  const navigateTo = (view, appId = null) => {
-    if (appId) {
-      setSelectedAppId(appId);
-    }
-    setCurrentView(view);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Helper for authorized API calls
+  const authFetch = async (url, options = {}) => {
+    const headers = {
+      ...(options.headers || {}),
+      'Authorization': `Bearer ${token}`
+    };
+    const response = await fetch(url, { ...options, headers });
+    return response;
   };
 
   return (
@@ -77,14 +173,14 @@ export const AppProvider = ({ children }) => {
       t,
       toggleLanguage,
       currentUser,
-      setCurrentUser,
       token,
-      loginAs,
+      loginWithPreset,
       logout,
-      currentView,
+      currentPath,
       navigateTo,
       selectedAppId,
-      setSelectedAppId
+      setSelectedAppId,
+      authFetch
     }}>
       {children}
     </AppContext.Provider>

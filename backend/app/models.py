@@ -41,6 +41,22 @@ class Application(Base):
     decision_remarks = Column(Text, nullable=True)
     decision_timestamp = Column(DateTime, nullable=True)
 
+    # Scrutiny Officer recommendation to Senior Officer
+    scrutiny_recommendation = Column(String(100), nullable=True) # "Recommend Approval", "Recommend Rejection", "Needs Senior Review"
+    scrutiny_remarks = Column(Text, nullable=True)
+
+    # Clarification channel between Scrutiny Officer and Institution
+    clarification_requested = Column(Boolean, default=False)
+    clarification_message = Column(Text, nullable=True)
+    clarification_reply = Column(Text, nullable=True)
+    clarification_date = Column(DateTime, nullable=True)
+
+    # Final decision by Senior Officer only
+    final_decision = Column(String(50), nullable=True) # "Approved", "Returned for Correction", "Recommended for Rejection"
+    final_decision_by = Column(String(100), nullable=True)
+    final_decision_date = Column(DateTime, nullable=True)
+    final_decision_reason = Column(Text, nullable=True)
+
     institute = relationship("Institute", back_populates="applications")
     documents = relationship("Document", back_populates="application", cascade="all, delete-orphan")
     flags = relationship("Flag", back_populates="application", cascade="all, delete-orphan")

@@ -340,7 +340,7 @@ def seed_database():
 
         # --- Case 2: 3 Missing document ---
         {
-            "id": "APP-2026-004", "inst": "INST-04", "cat": "Extension of Approval", "status": "Deficient",
+            "id": "APP-2026-004", "inst": "INST-01", "cat": "Extension of Approval", "status": "Deficient",
             "students": 360, "area": 1900.0, "labs": 8, "infra_adv": "Sufficient",
             "docs": [
                 ("Affiliation Letter", pdf_rv_aff, "AFF-MU-2025-8891", "15-06-2025", "31-07-2027", "State Technical University Portal", STATUS_VERIFIED),
@@ -352,7 +352,7 @@ def seed_database():
             ]
         },
         {
-            "id": "APP-2026-005", "inst": "INST-05", "cat": "New course", "status": "Deficient",
+            "id": "APP-2026-005", "inst": "INST-02", "cat": "New course", "status": "Deficient",
             "students": 300, "area": 1600.0, "labs": 7, "infra_adv": "Sufficient",
             "docs": [
                 ("Affiliation Letter", pdf_rv_aff, "AFF-MU-2025-8891", "15-06-2025", "31-07-2027", "State Technical University Portal", STATUS_VERIFIED)
