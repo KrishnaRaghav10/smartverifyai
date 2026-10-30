@@ -1,0 +1,157 @@
+{
+  "aphNotice": "Illustrative defaults; must be aligned to the applicable APH (Approval Process Handbook) before statutory use.",
+  "disclaimer": "Automated alerts support, but do not replace, statutory scrutiny and decisions of the competent authority.",
+  "documentExpiryAlertOffsets": [90, 60, 30, 7],
+  "stages": {
+    "SUBMITTED": {
+      "stage": "SUBMITTED",
+      "name": "Application Submitted",
+      "defaultSlaDays": 2,
+      "dueSoonThresholdDays": 1,
+      "allowedNextStages": ["SCRUTINY", "EVC_QUEUE", "CLOSED"]
+    },
+    "SCRUTINY": {
+      "stage": "SCRUTINY",
+      "name": "First Scrutiny",
+      "defaultSlaDays": 7,
+      "dueSoonThresholdDays": 2,
+      "allowedNextStages": ["RE_SCRUTINY", "EVC_QUEUE", "DECISION", "CLOSED"]
+    },
+    "RE_SCRUTINY": {
+      "stage": "RE_SCRUTINY",
+      "name": "Re-Scrutiny (Deficiencies)",
+      "defaultSlaDays": 5,
+      "dueSoonThresholdDays": 2,
+      "allowedNextStages": ["EVC_QUEUE", "DECISION", "CLOSED"]
+    },
+    "EVC_QUEUE": {
+      "stage": "EVC_QUEUE",
+      "name": "EVC Scheduling Queue",
+      "defaultSlaDays": 10,
+      "dueSoonThresholdDays": 3,
+      "allowedNextStages": ["EVC_SCHEDULED", "CLOSED"]
+    },
+    "EVC_SCHEDULED": {
+      "stage": "EVC_SCHEDULED",
+      "name": "EVC Inspection Scheduled",
+      "defaultSlaDays": 14,
+      "dueSoonThresholdDays": 4,
+      "allowedNextStages": ["EVC_DONE"]
+    },
+    "EVC_DONE": {
+      "stage": "EVC_DONE",
+      "name": "EVC Report Submitted",
+      "defaultSlaDays": 5,
+      "dueSoonThresholdDays": 2,
+      "allowedNextStages": ["SAC_SHC", "DECISION", "CLOSED"]
+    },
+    "SAC_SHC": {
+      "stage": "SAC_SHC",
+      "name": "SAC / SHC Committee Review",
+      "defaultSlaDays": 7,
+      "dueSoonThresholdDays": 2,
+      "allowedNextStages": ["DECISION", "CLOSED"]
+    },
+    "DECISION": {
+      "stage": "DECISION",
+      "name": "Competent Authority Decision",
+      "defaultSlaDays": 7,
+      "dueSoonThresholdDays": 2,
+      "allowedNextStages": ["CLOSED"]
+    },
+    "CLOSED": {
+      "stage": "CLOSED",
+      "name": "Approval Cycle Closed",
+      "defaultSlaDays": 0,
+      "dueSoonThresholdDays": 0,
+      "allowedNextStages": []
+    }
+  },
+  "pathways": {
+    "ONLY_SCRUTINY": ["SUBMITTED", "SCRUTINY", "DECISION", "CLOSED"],
+    "SCRUTINY_EVC": ["SUBMITTED", "SCRUTINY", "EVC_QUEUE", "EVC_SCHEDULED", "EVC_DONE", "DECISION", "CLOSED"],
+    "EVC_SAC_SHC": ["SUBMITTED", "EVC_QUEUE", "EVC_SCHEDULED", "EVC_DONE", "SAC_SHC", "DECISION", "CLOSED"],
+    "ONLY_EVC": ["SUBMITTED", "EVC_QUEUE", "EVC_SCHEDULED", "EVC_DONE", "DECISION", "CLOSED"],
+    "SCRUTINY_EVC_SAC_SHC": ["SUBMITTED", "SCRUTINY", "EVC_QUEUE", "EVC_SCHEDULED", "EVC_DONE", "SAC_SHC", "DECISION", "CLOSED"]
+  },
+  "escalationLadders": {
+    "application": [
+      {
+        "level": 1,
+        "targetRole": "REGIONAL_OFFICER",
+        "waitDays": 3,
+        "channel": "IN_APP",
+        "notificationTemplate": "Application {id} for {institution} exceeded stage SLA by {days} days. Escalated to Regional Command."
+      },
+      {
+        "level": 2,
+        "targetRole": "BUREAU_OFFICER",
+        "waitDays": 7,
+        "channel": "ALL",
+        "notificationTemplate": "Application {id} ({institution}) remains unresolved after Regional escalation (+{days} days). Escalated to Bureau Control."
+      },
+      {
+        "level": 3,
+        "targetRole": "SENIOR_AUTHORITY",
+        "waitDays": 14,
+        "channel": "ALL",
+        "notificationTemplate": "CRITICAL: Application {id} ({institution}) unresolved for {days} days across Bureau. Escalated to Senior Authority Executive Inbox."
+      }
+    ],
+    "evc": [
+      {
+        "level": 1,
+        "targetRole": "REGIONAL_OFFICER",
+        "waitDays": 3,
+        "channel": "IN_APP",
+        "notificationTemplate": "EVC for {institution} ({type}) past scheduling deadline by {days} days."
+      },
+      {
+        "level": 2,
+        "targetRole": "SENIOR_AUTHORITY",
+        "waitDays": 7,
+        "channel": "ALL",
+        "notificationTemplate": "EVC delay for new institution {institution} reached {days} days beyond statutory target. Authority intervention requested."
+      }
+    ],
+    "undertaking": [
+      {
+        "level": 1,
+        "targetRole": "COMPLIANCE_OFFICER",
+        "waitDays": 1,
+        "channel": "IN_APP",
+        "notificationTemplate": "Undertaking for {institution} ({condition}) has expired without verified compliance."
+      },
+      {
+        "level": 2,
+        "targetRole": "REGIONAL_OFFICER",
+        "waitDays": 7,
+        "channel": "EMAIL",
+        "notificationTemplate": "Institutional undertaking unfulfilled for {institution} (+{days} days overdue). Regional action required."
+      },
+      {
+        "level": 3,
+        "targetRole": "SENIOR_AUTHORITY",
+        "waitDays": 15,
+        "channel": "ALL",
+        "notificationTemplate": "Statutory default: {institution} undertaking overdue by {days} days. Placed on Executive Agenda."
+      }
+    ],
+    "document": [
+      {
+        "level": 1,
+        "targetRole": "COMPLIANCE_OFFICER",
+        "waitDays": 0,
+        "channel": "IN_APP",
+        "notificationTemplate": "Document {docType} for {institution} has lapsed without submitted renewal."
+      },
+      {
+        "level": 2,
+        "targetRole": "REGIONAL_OFFICER",
+        "waitDays": 7,
+        "channel": "ALL",
+        "notificationTemplate": "Prescribed document expired: {institution} has no active {docType}. Formal show-cause trigger pending."
+      }
+    ]
+  }
+}

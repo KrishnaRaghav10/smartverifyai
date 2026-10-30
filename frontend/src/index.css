@@ -2,122 +2,118 @@
 
 @layer base {
   :root {
-    --bg-main: #FFFFFF;
-    --bg-panel: #F6F8FB;
-    --primary-navy: #1B3A6B;
-    --accent-saffron: #E8890C;
-    --status-success: #1E7B34;
-    --status-warning: #B7791F;
-    --status-error: #B3261E;
-    --border-light: #D1D5DB;
+    --bg: #F7F8FC;
+    --surface: #FFFFFF;
+    --surface-2: #EEF1F8;
+    --ink: #0F1B3D;
+    --ink-2: #5B6785;
+    --line: #E1E6F0;
+    --brand: #1F3A8A;
+    --brand-soft: #E6ECFF;
+    --saffron: #F28C28;
+    --green: #138808;
+    --chakra: #0A5CD6;
+    --warn: #E8A100;
+    --danger: #D92D20;
+    --violet: #6D4AFF;
   }
 
   body {
-    background-color: #FFFFFF;
-    color: #1F2937;
-    font-family: 'Noto Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', 'Inter', sans-serif;
+  }
+
+  .font-mono-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
 }
 
-/* Custom Govt Tag Styles */
-.gov-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  font-size: 11px;
-  font-weight: 600;
-  border-radius: 4px;
-  border-width: 1px;
-  letter-spacing: 0.02em;
+/* 4px Tricolour hairline (saffron / white / green) */
+.tricolor-hairline {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #F28C28 0%, #F28C28 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
+  display: block;
 }
 
-.gov-tag-clean {
-  background-color: #ECFDF5;
-  color: #1E7B34;
-  border-color: #A7F3D0;
+/* Ashoka Chakra 24-spoke background overlay (4% opacity) */
+.ashoka-chakra-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%230A5CD6' stroke-width='2' stroke-opacity='0.04'/%3E%3Ccircle cx='50' cy='50' r='10' fill='none' stroke='%230A5CD6' stroke-width='1.5' stroke-opacity='0.04'/%3E%3Cg stroke='%230A5CD6' stroke-width='1' stroke-opacity='0.04'%3E%3Cline x1='50' y1='6' x2='50' y2='94'/%3E%3Cline x1='6' y1='50' x2='94' y2='50'/%3E%3Cline x1='19' y1='19' x2='81' y2='81'/%3E%3Cline x1='19' y1='81' x2='81' y2='19'/%3E%3Cline x1='33' y1='9' x2='67' y2='91'/%3E%3Cline x1='67' y1='9' x2='33' y2='91'/%3E%3Cline x1='9' y1='33' x2='91' y2='67'/%3E%3Cline x1='9' y1='67' x2='91' y2='33'/%3E%3Cline x1='41.5' y1='7' x2='58.5' y2='93'/%3E%3Cline x1='58.5' y1='7' x2='41.5' y2='93'/%3E%3Cline x1='7' y1='41.5' x2='93' y2='58.5'/%3E%3Cline x1='7' y1='58.5' x2='93' y2='41.5'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-.gov-tag-needs-review {
-  background-color: #FFFBEB;
-  color: #B7791F;
-  border-color: #FDE68A;
+/* Card & Surface styles */
+.aegis-card {
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(15, 27, 61, 0.04), 0 8px 24px rgba(15, 27, 61, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.aegis-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(15, 27, 61, 0.06), 0 12px 28px rgba(15, 27, 61, 0.08);
 }
 
-.gov-tag-deficient {
-  background-color: #FEF2F2;
-  color: #B3261E;
-  border-color: #FECACA;
+/* Section Header File Folder Tab */
+.section-tab-marker {
+  position: relative;
+  padding-left: 14px;
+}
+.section-tab-marker::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 4px;
+  border-radius: 999px;
+  background-color: var(--brand);
+}
+.section-tab-marker-saffron::before { background-color: var(--saffron); }
+.section-tab-marker-teal::before { background-color: #0E8F8A; }
+.section-tab-marker-violet::before { background-color: var(--violet); }
+.section-tab-marker-emerald::before { background-color: #0F9D58; }
+
+/* Status Chip Pulsing & Shaking animations */
+@keyframes pulseSlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
 }
 
-.gov-tag-pending {
-  background-color: #EFF6FF;
-  color: #1B3A6B;
-  border-color: #BFDBFE;
+@keyframes shakeOnce {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-2px); }
+  40%, 80% { transform: translateX(2px); }
 }
 
-.gov-card {
-  background-color: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 4px;
+.animate-pulse-due-soon {
+  animation: pulseSlow 2.5s infinite ease-in-out;
 }
 
-.gov-panel {
-  background-color: #F6F8FB;
-  border: 1px solid #E2E8F0;
-  border-radius: 4px;
+.animate-shake-overdue {
+  animation: shakeOnce 0.6s ease-in-out;
 }
 
-/* Primary and Saffron Button Utilities */
-.btn-gov-primary {
-  background-color: #1B3A6B;
-  color: #FFFFFF;
-  border: 1px solid #142C52;
-  border-radius: 4px;
-  font-weight: 500;
-  padding: 6px 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.1s ease;
-}
-.btn-gov-primary:hover {
-  background-color: #142C52;
-}
-
-.btn-gov-saffron {
-  background-color: #E8890C;
-  color: #FFFFFF;
-  border: 1px solid #C97207;
-  border-radius: 4px;
-  font-weight: 600;
-  padding: 6px 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.1s ease;
-}
-.btn-gov-saffron:hover {
-  background-color: #C97207;
-}
-
-.btn-gov-outline {
-  background-color: #FFFFFF;
-  color: #1B3A6B;
-  border: 1px solid #CBD5E1;
-  border-radius: 4px;
-  font-weight: 500;
-  padding: 6px 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.btn-gov-outline:hover {
-  background-color: #F8FAFC;
-  border-color: #94A3B8;
+/* Print styles for Electronic Case Summary & Executive Briefing */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  .aegis-card {
+    border: 1px solid #CCCCCC !important;
+    box-shadow: none !important;
+  }
 }

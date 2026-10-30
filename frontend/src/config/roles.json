@@ -1,0 +1,158 @@
+[
+  {
+    "role": "INSTITUTION",
+    "title": "Institution Portal",
+    "portalName": "Institution Portal",
+    "accentColor": "#0A5CD6",
+    "shellType": "top-tab",
+    "mood": "Manage EoA applications, respond to deficiency notices, and track institutional compliance standing.",
+    "signature": "Compliance Health Ring & Step-by-Step Pathway Navigator",
+    "demoUser": {
+      "id": "USR-INST-01",
+      "name": "Dr. Ramesh Gupta",
+      "email": "principal@aarohan-tech.edu.in",
+      "designation": "Principal & Head of Institution",
+      "institutionId": "INST-W-01",
+      "institutionName": "Aarohan Institute of Technology",
+      "region": "Western"
+    }
+  },
+  {
+    "role": "SCRUTINY_OFFICER",
+    "title": "Scrutiny Officer",
+    "portalName": "Scrutiny Officer",
+    "accentColor": "#0E8F8A",
+    "shellType": "split-pane",
+    "mood": "Review applications, verify statutory checklist parameters, issue deficiency notices, and advance cases.",
+    "signature": "Split-pane live verification checklist with J/K/C/R shortcuts and electronic case summary auto-drafter",
+    "demoUser": {
+      "id": "USR-SCRUT-01",
+      "name": "Er. Vikram Deshmukh",
+      "email": "vikram.deshmukh@aicte-india.org",
+      "designation": "Senior Scrutiny Officer",
+      "region": "Western"
+    }
+  },
+  {
+    "role": "REGIONAL_OFFICER",
+    "title": "Regional Officer",
+    "portalName": "Regional Officer",
+    "accentColor": "#F28C28",
+    "shellType": "sidebar-map",
+    "mood": "Oversight of regional workload distribution, bottleneck radars, and officer case reassignment.",
+    "signature": "Regional Heat Map, Stage Funnel & Drag-and-Drop Officer Workload Board",
+    "demoUser": {
+      "id": "USR-RO-01",
+      "name": "Dr. Sunita Sharma",
+      "email": "ro.western@aicte-india.org",
+      "designation": "Regional Officer (WRO)",
+      "region": "Western"
+    }
+  },
+  {
+    "role": "BUREAU_OFFICER",
+    "title": "Bureau Officer",
+    "portalName": "Bureau Officer",
+    "accentColor": "#4F46E5",
+    "shellType": "grid-alerts-rail",
+    "mood": "Cross-region national command centre with persistent live alerts rail and multi-widget dashboard.",
+    "signature": "Rearrangeable widget grid with Region Comparison Sparklines & Multi-stage Drilldown",
+    "demoUser": {
+      "id": "USR-BUR-01",
+      "name": "Shri Rajeev Verma",
+      "email": "advisor.approval@aicte-india.org",
+      "designation": "Advisor & Bureau Head (Approval Bureau)",
+      "region": "Central"
+    }
+  },
+  {
+    "role": "EVC_COORDINATOR",
+    "title": "EVC Coordinator",
+    "portalName": "EVC Coordinator",
+    "accentColor": "#6D4AFF",
+    "shellType": "calendar-timeline",
+    "mood": "Schedule expert visits, constitute conflict-free inspection panels, and monitor statutory timeline Gantt.",
+    "signature": "Drag-to-Schedule Queue Calendar, Conflict-of-Interest Guard & Inspection Gantt",
+    "demoUser": {
+      "id": "USR-EVC-01",
+      "name": "Prof. Amitava Bose",
+      "email": "evc.national@aicte-india.org",
+      "designation": "National EVC Coordination Officer"
+    }
+  },
+  {
+    "role": "COMMITTEE_MEMBER",
+    "title": "Committee Member",
+    "portalName": "Committee Member",
+    "accentColor": "#8E3B8E",
+    "shellType": "document-reader",
+    "mood": "Examine agenda dossiers, formulate advisory opinions, and propose time-bound undertakings.",
+    "signature": "Dossier Reading Pane with Structured Advisory Conditions Builder",
+    "demoUser": {
+      "id": "USR-COMM-01",
+      "name": "Dr. K. S. Radhakrishnan",
+      "email": "radhakrishnan.sac@aicte-india.org",
+      "designation": "Chairman, Standing Appellate Committee (SAC)"
+    }
+  },
+  {
+    "role": "COMPLIANCE_OFFICER",
+    "title": "Compliance Officer",
+    "portalName": "Compliance Officer",
+    "accentColor": "#0F9D58",
+    "shellType": "kanban-radar",
+    "mood": "Track undertakings Kanban columns, verify uploaded evidence, and monitor document expiry radar.",
+    "signature": "6-Stage Undertakings Kanban, Concentric Expiry Radar & Evidence Verification Drawer",
+    "demoUser": {
+      "id": "USR-COMP-01",
+      "name": "Smt. Meenakshi Sundaram",
+      "email": "compliance.cell@aicte-india.org",
+      "designation": "Director, Quality & Compliance Cell"
+    }
+  },
+  {
+    "role": "SENIOR_AUTHORITY",
+    "title": "Senior Authority",
+    "portalName": "Senior Authority",
+    "accentColor": "#1F3A8A",
+    "shellType": "presentation-dock",
+    "mood": "Executive council briefing, top-of-ladder escalations, and sovereign statutory approval decisions.",
+    "signature": "Top Executive Briefing, Top-of-Ladder Escalation Action Shelf & Sovereign Decisions Shelf",
+    "demoUser": {
+      "id": "USR-SENIOR-01",
+      "name": "Prof. T. G. Sitharam",
+      "email": "chairman@aicte-india.org",
+      "designation": "Chairman, AICTE"
+    }
+  },
+  {
+    "role": "SYSTEM_ADMIN",
+    "title": "System Administrator",
+    "portalName": "System Administrator",
+    "accentColor": "#475569",
+    "shellType": "config-tree",
+    "mood": "Visual pathway designer, SLA days and threshold tuning, and multi-level escalation ladder setup.",
+    "signature": "Interactive Pathway Node Graph Designer & Multi-level Escalation Ladder Builder",
+    "demoUser": {
+      "id": "USR-ADMIN-01",
+      "name": "Arun Kumar",
+      "email": "admin.systems@aicte-india.org",
+      "designation": "Lead System Architect & Policy Configurator"
+    }
+  },
+  {
+    "role": "AUDITOR",
+    "title": "Statutory Auditor",
+    "portalName": "Statutory Auditor",
+    "accentColor": "#1E293B",
+    "shellType": "readonly-timeline",
+    "mood": "Forensic audit explorer with case reconstruction playback scrubber and cryptographic SHA-256 chain verification.",
+    "signature": "Interactive Case Reconstruction Replay Scrubber & Hash-Chained Verifier",
+    "demoUser": {
+      "id": "USR-AUDIT-01",
+      "name": "Justice (Retd.) B. N. Srikrishna",
+      "email": "ombudsman@aicte-india.org",
+      "designation": "Statutory Transparency Auditor"
+    }
+  }
+]

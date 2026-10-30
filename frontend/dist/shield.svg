@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1F3A8A"/>
+      <stop offset="100%" stop-color="#0F1B3D"/>
+    </linearGradient>
+    <linearGradient id="tricolor" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F28C28"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#138808"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer Shield Contour -->
+  <path d="M50 8 L85 24 V52 C85 72 50 92 50 92 C50 92 15 72 15 52 V24 Z" fill="url(#shieldGrad)" stroke="#1F3A8A" stroke-width="2"/>
+  <!-- Tricolor Accent Spine -->
+  <path d="M50 14 L80 28 V50 C80 67 50 84 50 84 C50 84 20 67 20 50 V28 Z" fill="#0A1633" opacity="0.4"/>
+  <!-- Inner Shield Border -->
+  <path d="M50 18 L76 30 V50 C76 65 50 79 50 79 C50 79 24 65 24 50 V30 Z" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.6"/>
+  <!-- Emblem Center: Stylized Chakra Gear / Core -->
+  <circle cx="50" cy="48" r="14" fill="#1F3A8A" stroke="#F28C28" stroke-width="2"/>
+  <circle cx="50" cy="48" r="4" fill="#F28C28"/>
+  <!-- 8 Cardinal/Intercardinal spokes -->
+  <path d="M50 36 V44 M50 52 V60 M38 48 H46 M54 48 H62 M41.5 39.5 L47 45 M53 51 L58.5 56.5 M41.5 56.5 L47 51 M53 45 L58.5 39.5" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Checkmark of Verified Compliance -->
+  <path d="M44 48 L48 52 L57 43" stroke="#138808" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
